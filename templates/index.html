@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepfake Detector</title>
+    <style>body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #0d1117;
+        color: white;
+    }
+    
+    header {
+        background: #161b22;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .logo {
+        display: flex;
+        align-items: center;
+    }
+    
+    .logo img {
+        width: 40px;
+        margin-right: 10px;
+    }
+    
+    nav ul {
+        list-style: none;
+        display: flex;
+    }
+    
+    nav ul li {
+        margin: 0 20px;
+    }
+    
+    nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+    
+    nav ul li a:hover {
+        color: #58a6ff;
+    }
+    
+    .hero-section {
+        text-align: center;
+        padding: 60px 20px;
+        background: linear-gradient(to right, #0066cc, #0044cc);
+        color: white;
+        animation: fadeIn 1.5s ease-in-out;
+    }
+    
+    .hero-section h2 {
+        font-size: 2.5em;
+    }
+    
+    .hero-section p {
+        font-size: 1.2em;
+    }
+    
+    .upload-section {
+        text-align: center;
+        padding: 40px;
+        background: #21262d;
+        border-radius: 12px;
+        margin: 50px auto;
+        width: 50%;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .drag-drop {
+        border: 2px dashed #58a6ff;
+        padding: 40px;
+        margin: 20px auto;
+        width: 80%;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.05);
+        transition: background 0.3s;
+        font-size: 1.2em;
+    }
+    
+    .drag-drop:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+    
+    button {
+        padding: 12px 24px;
+        background: #58a6ff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 6px;
+        font-size: 18px;
+        transition: background 0.3s ease;
+    }
+    
+    button:hover {
+        background: #4c9aff;
+    }
+    
+    .about-section, .deepfake-section {
+        text-align: center;
+        padding: 60px 20px;
+        background: #1c2128;
+        margin-top: 30px;
+        border-radius: 10px;
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .about-section h2, .deepfake-section h2{
+        font-size: 300%;
+    }
+    
+    .about-section p, .deepfake-section p{
+        font-size: 120%;
+        text-align: justify;
+    } 
+    footer {
+        background: #161b22;
+        padding: 20px;
+        text-align: center;
+        font-size: 14px;
+        color: #c9d1d9;
+    }
+    
+    footer a {
+        color: #58a6ff;
+        text-decoration: none;
+    }
+    
+    footer a:hover {
+        color: #79c0ff;
+    }
+    
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .hero-section {
+        text-align: center;
+        padding: 40px;
+        background: linear-gradient(to right, #0066cc, #0044cc);
+        color: white;
+        animation: fadeIn 1.5s ease-in-out;
+        width: 50%; /* Reduced width */
+        margin: 30px auto; /* Center align */
+        border-radius: 10px; /* Soft rounded edges */
+    }
+    
+    .output-section {
+        text-align: center;
+        margin: 30px auto;
+        width: 50%; /* Centered and width reduced */
+        padding: 20px;
+        background: #21262d;
+        border-radius: 10px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    } </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Deepfake Detector</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#deepfake">Deepfake Info</a></li>
+                <li><a href="#upload">Upload</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-section">
+        <h2>Detect Deepfake Videos with AI</h2>
+        <p>Upload your video and let our AI analyze it.</p>
+    </section>
+
+    <section id="upload" class="upload-section">
+        <h2>Upload Video</h2>
+        <form id="uploadForm" action="/analyze" method="POST" enctype="multipart/form-data">
+            <div class="drag-drop">
+                <p>📂 Drag & Drop or Click to Upload Media</p>
+                <input type="file" id="videoUpload" name="video" accept="video/*" required>
+            </div>
+            <button type="submit">Analyze Deepfake</button>
+        </form>
+    </section>
+    
+    <div id="outputSection" class="output-section">
+        {% if content %}
+            <h3>Analysis Results:</h3>
+            <p id="Result">{{ content }}</p>
+        {% else %}
+            <p>Upload a video to generate output.</p>
+        {% endif %}
+    </div>
+
+    <section id="about" class="about-section">
+        <h2>About the Project</h2>
+        <p>In an era where digital manipulation is becoming increasingly sophisticated, deepfake videos pose a serious threat to information integrity, privacy, and security. Our project is designed to detect deepfake videos by analyzing both audio and visual components to distinguish between authentic and manipulated content.
+
+            How it Works?
+            Visual Analysis: Our model examines facial expressions, inconsistencies in lighting, and frame distortions to identify artificially generated elements.
+            Audio Analysis: The system detects anomalies in speech patterns, mismatched lip synchronization, and unnatural sound modulations.
+            Combined Deepfake Detection: By aligning both audio and video using techniques like Dynamic Time Warping (DTW) and deep learning models, our system provides an accurate deepfake detection result.
+            User-Friendly Interface: The platform allows users to simply upload a video, and the AI-powered system processes it to determine whether it is real or fake.
+            This technology is crucial in combating misinformation, ensuring media authenticity, and preventing malicious usage of deepfake videos in scams, identity theft, and political propaganda.</p>
+    </section>
+
+    <section id="deepfake" class="deepfake-section">
+        <h2>What is Deepfake?</h2>
+        <p>Deepfakes are AI-generated synthetic media where a person’s appearance, voice, or actions are manipulated using machine learning techniques, making it appear as though they said or did something they never actually did. These deceptive videos can be used in:
+
+            Fake News & Misinformation: Deepfakes are often used to spread false information, leading to confusion and manipulation of public opinion.
+            Cybersecurity Threats: Hackers can use deepfake technology to impersonate individuals, leading to identity theft, fraud, or unauthorized access to sensitive information.
+            Political Manipulation: Deepfakes can be used to falsely depict politicians or public figures, potentially disrupting elections or public trust.
+            Personal Privacy Violations: Individuals can be targeted through manipulated videos, leading to harassment or reputational damage.
+            Why is Detection Critical?
+            With the rise of AI-generated content, identifying deepfakes is essential to maintaining trust in digital media. Our system leverages cutting-edge AI and machine learning techniques to detect and prevent the spread of deepfake content before it causes harm.</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Deepfake Detector | <a href="#">View Source</a></p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>

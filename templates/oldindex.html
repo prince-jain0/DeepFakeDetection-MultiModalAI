@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepfake Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Deepfake Detector</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#deepfake">Deepfake Info</a></li>
+                <li><a href="#upload">Upload</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-section">
+        <h2>Detect Deepfake Videos with AI</h2>
+        <p>Upload your video and let our AI analyze it.</p>
+    </section>
+
+    <section id="upload" class="upload-section">
+        <h2>Upload Video</h2>
+        <form id="uploadForm" action="/analyze" method="POST" enctype="multipart/form-data">
+            <div class="drag-drop">
+                <p>Drag & Drop Video Here</p>
+                <input type="file" id="videoUpload" name="video" accept="video/*" required>
+            </div>
+            <button type="submit">Analyze</button>
+        </form>
+    </section>
+
+    
+    <!-- Output Section -->
+    <div id="outputSection" class="output-section hidden">
+        {% if content %}
+            <h3>Analysis Results:</h3>
+            <p id="Result">{{ content }}</p>
+        {% else %}
+            <p>Upload a video to generate output.</p>
+        {% endif %}
+    </div>
+
+    <section id="about" class="about-section">
+        <h2>About the Project</h2>
+        <p>In an era where digital manipulation is becoming increasingly sophisticated, deepfake videos pose a serious threat to information integrity, privacy, and security. Our project is designed to detect deepfake videos by analyzing both audio and visual components to distinguish between authentic and manipulated content.
+
+            How it Works?
+            Visual Analysis: Our model examines facial expressions, inconsistencies in lighting, and frame distortions to identify artificially generated elements.
+            Audio Analysis: The system detects anomalies in speech patterns, mismatched lip synchronization, and unnatural sound modulations.
+            Combined Deepfake Detection: By aligning both audio and video using techniques like Dynamic Time Warping (DTW) and deep learning models, our system provides an accurate deepfake detection result.
+            User-Friendly Interface: The platform allows users to simply upload a video, and the AI-powered system processes it to determine whether it is real or fake.
+            This technology is crucial in combating misinformation, ensuring media authenticity, and preventing malicious usage of deepfake videos in scams, identity theft, and political propaganda.</p>
+    </section>
+
+    <section id="deepfake" class="deepfake-section">
+        <h2>What is Deepfake?</h2>
+        <p>Deepfakes are AI-generated synthetic media where a person’s appearance, voice, or actions are manipulated using machine learning techniques, making it appear as though they said or did something they never actually did. These deceptive videos can be used in:
+
+            Fake News & Misinformation: Deepfakes are often used to spread false information, leading to confusion and manipulation of public opinion.
+            Cybersecurity Threats: Hackers can use deepfake technology to impersonate individuals, leading to identity theft, fraud, or unauthorized access to sensitive information.
+            Political Manipulation: Deepfakes can be used to falsely depict politicians or public figures, potentially disrupting elections or public trust.
+            Personal Privacy Violations: Individuals can be targeted through manipulated videos, leading to harassment or reputational damage.
+            Why is Detection Critical?
+            With the rise of AI-generated content, identifying deepfakes is essential to maintaining trust in digital media. Our system leverages cutting-edge AI and machine learning techniques to detect and prevent the spread of deepfake content before it causes harm.</p>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Deepfake Detector. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#">Facebook</a>
+                <a href="#">Twitter</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">GitHub</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>
+
