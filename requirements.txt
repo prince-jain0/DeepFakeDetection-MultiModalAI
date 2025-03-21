@@ -1,0 +1,9 @@
+torch
+torchvision
+transformers
+numpy
+librosa
+opencv-python
+dtw-python
+pydub
+flask
