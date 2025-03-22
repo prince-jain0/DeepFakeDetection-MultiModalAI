@@ -7,3 +7,5 @@ opencv-python
 dtw-python
 pydub
 flask
+fastdtw
+
